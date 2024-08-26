@@ -1,10 +1,8 @@
 import React, { createContext } from 'react';
 
-// Named export for UserContext
-export const UserContext = createContext();
+const UserContext = createContext();
 
-// Named export for UserProvider
-export const UserProvider = ({ children }) => {
+const UserProvider = ({ children }) => {
   const user = {
     name: 'John Doe',
     age: 30,
@@ -17,3 +15,7 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+// Use export default for UserContext or UserProvider
+export { UserContext };
+export default UserProvider;
