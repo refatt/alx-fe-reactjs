@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { UserContext } from '../UserContext';
+import { UserContext } from '../UserContext'; // Named import
 
 function UserProfile() {
   const { name, age, bio } = useContext(UserContext);
