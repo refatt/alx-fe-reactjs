@@ -1,3 +1,4 @@
+// src/App.jsx
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
@@ -19,7 +20,7 @@ function App() {
           </ProtectedRoute>
         } />
         <Route path="/login" element={<Login />} />
-        <Route path="/post/:id" element={<BlogPost />} /> {/* Dynamic Route */}
+        <Route path="/blog/:id" element={<BlogPost />} /> {/* Dynamic Route for Blog Posts */}
       </Routes>
     </BrowserRouter>
   );
