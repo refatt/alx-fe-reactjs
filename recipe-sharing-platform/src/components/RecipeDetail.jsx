@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import recipeData from '../data.json';
 
 const RecipeDetail = () => {
-  const { id } = useParams();  // Get recipe ID from URL parameters
+  const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
@@ -18,11 +18,17 @@ const RecipeDetail = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
-      <img src={recipe.image} alt={recipe.title} className="w-full h-64 object-cover rounded-lg mb-4" />
-      <p className="text-lg text-gray-600 mb-6">{recipe.summary}</p>
-      
-      <div className="mb-6">
+      <div className="bg-white shadow-lg rounded-lg p-6 mb-6"> {/* Added shadow and rounded corners */}
+        <h1 className="text-4xl font-bold mb-4">{recipe.title}</h1>
+        <img 
+          src={recipe.image} 
+          alt={recipe.title} 
+          className="w-full h-64 object-cover rounded-lg shadow-md mb-4"  // Added shadow to image
+        />
+        <p className="text-lg text-gray-600 mb-6">{recipe.summary}</p>
+      </div>
+
+      <div className="bg-white shadow-lg rounded-lg p-6 mb-6"> {/* Added shadow to ingredients section */}
         <h2 className="text-2xl font-semibold mb-2">Ingredients</h2>
         <ul className="list-disc list-inside">
           {recipe.ingredients.map((ingredient, index) => (
@@ -31,7 +37,7 @@ const RecipeDetail = () => {
         </ul>
       </div>
 
-      <div>
+      <div className="bg-white shadow-lg rounded-lg p-6"> {/* Added shadow to instructions section */}
         <h2 className="text-2xl font-semibold mb-2">Instructions</h2>
         <ol className="list-decimal list-inside">
           {recipe.instructions.map((instruction, index) => (
