@@ -1,21 +1,43 @@
 [
-    {
-      "id": 1,
-      "title": "Spaghetti Carbonara",
-      "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "id": 2,
-      "title": "Chicken Tikka Masala",
-      "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato-based gravy.",
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "id": 3,
-      "title": "Vegetarian Pizza",
-      "summary": "A delightful mix of fresh vegetables and mozzarella cheese on a homemade pizza crust.",
-      "image": "https://via.placeholder.com/150"
-    }
-  ]
-  
+  {
+    "id": 1,
+    "title": "Spaghetti Carbonara",
+    "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "200g spaghetti",
+      "100g pancetta",
+      "2 large eggs",
+      "50g pecorino cheese",
+      "50g parmesan",
+      "Freshly ground black pepper"
+    ],
+    "instructions": [
+      "Cook the spaghetti according to the package instructions.",
+      "Fry the pancetta in olive oil until crisp.",
+      "Beat the eggs with the cheese and pepper.",
+      "Drain the pasta and combine with the pancetta and egg mixture."
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Chicken Tikka Masala",
+    "summary": "Chunks of grilled chicken cooked in a smooth buttery & creamy tomato-based gravy.",
+    "image": "https://via.placeholder.com/150",
+    "ingredients": [
+      "500g chicken breast",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 onion",
+      "2 garlic cloves",
+      "400g canned tomatoes",
+      "100ml cream"
+    ],
+    "instructions": [
+      "Marinate the chicken in yogurt and tikka masala paste for at least 1 hour.",
+      "Grill the chicken until cooked through.",
+      "Fry the onions and garlic in a pan.",
+      "Add tomatoes and simmer, then add grilled chicken and cream."
+    ]
+  }
+]
