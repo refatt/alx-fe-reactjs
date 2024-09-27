@@ -1,31 +1,32 @@
 import React, { useState } from 'react';
-import Search from './components/Search';  // Import the Search component
-import { fetchUserData } from './services/githubService';  // API service
+import Search from './components/Search';  // Import Search component
+import { fetchUserData } from './services/githubService';  // Import the API service
 
 function App() {
-  const [userData, setUserData] = useState(null);  // Holds the user data from GitHub
-  const [loading, setLoading] = useState(false);  // Loading state
-  const [error, setError] = useState('');  // Error state
+  const [userData, setUserData] = useState(null);  // Holds user data from GitHub
+  const [loading, setLoading] = useState(false);   // Loading state
+  const [error, setError] = useState('');          // Error state
 
   const handleSearch = async (username) => {
-    setLoading(true);   // Start loading
-    setError('');       // Reset any previous error messages
-    setUserData(null);  // Clear previous user data
+    setLoading(true);  // Set loading state to true when searching
+    setError('');      // Reset any previous error messages
+    setUserData(null); // Clear previous user data
 
     try {
       const data = await fetchUserData(username);  // Fetch data from GitHub API
-      setUserData(data);  // Set user data if successful
+      setUserData(data);  // Set user data on success
     } catch (err) {
       setError('Looks like we can’t find the user.');  // Set error message on failure
     } finally {
-      setLoading(false);  // Stop loading once request is done
+      setLoading(false);  // Stop loading once request completes
     }
   };
 
   return (
     <div className="App">
       <h1>GitHub User Search</h1>
-      {/* Search input component */}
+      
+      {/* Search component */}
       <Search onSearch={handleSearch} />
 
       {/* Display loading, error, or user data */}
