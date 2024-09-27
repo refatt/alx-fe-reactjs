@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SearchInput from './components/SearchInput';
+import Search from './components/Search';  // Updated import path
 import { fetchUserData } from './services/githubService';
 
 function App() {
@@ -25,8 +25,8 @@ function App() {
   return (
     <div className="App">
       <h1>GitHub User Search</h1>
-      {/* Search input component */}
-      <SearchInput onSearch={handleSearch} />
+      {/* Search component */}
+      <Search onSearch={handleSearch} />
 
       {/* Display loading, error, or user data */}
       {loading && <p>Loading...</p>}
