@@ -1,16 +1,25 @@
 import React, { useState } from 'react';
 import SearchInput from './components/SearchInput';
-import SearchResults from './components/SearchResults';
+import { fetchUserData } from './services/githubService';
 
 function App() {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [userData, setUserData] = useState(null); // To store API response
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  // Placeholder for handling search submission
-  const handleSearch = (term) => {
-    setSearchTerm(term);
-    // Here, you'll later add the logic to fetch data from the GitHub API
-    console.log(`Searching for: ${term}`);
+  const handleSearch = async (username) => {
+    setLoading(true);
+    setError('');
+    setUserData(null);
+
+    try {
+      const data = await fetchUserData(username);
+      setUserData(data);
+    } catch (err) {
+      setError('Looks like we can’t find the user.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -18,9 +27,20 @@ function App() {
       <h1>GitHub User Search</h1>
       {/* Search input component */}
       <SearchInput onSearch={handleSearch} />
-      
-      {/* Search result component */}
-      <SearchResults userData={userData} />
+
+      {/* Display loading, error, or user data */}
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {userData && (
+        <div>
+          <h2>{userData.name || 'No Name Available'}</h2>
+          <img src={userData.avatar_url} alt="User Avatar" width="100" />
+          <p>Username: {userData.login}</p>
+          <a href={userData.html_url} target="_blank" rel="noopener noreferrer">
+            Visit Profile
+          </a>
+        </div>
+      )}
     </div>
   );
 }
