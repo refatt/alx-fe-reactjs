@@ -7,6 +7,7 @@ const SearchInput = ({ onSearch }) => {
     e.preventDefault();
     if (inputValue.trim()) {
       onSearch(inputValue);
+      setInputValue('');
     }
   };
 
