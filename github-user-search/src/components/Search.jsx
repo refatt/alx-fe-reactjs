@@ -6,8 +6,8 @@ const Search = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      onSearch(inputValue);  // Pass input to parent (App.jsx) for searching
-      setInputValue('');      // Clear the input field after submission
+      onSearch(inputValue);
+      setInputValue(''); // Clear input after submission
     }
   };
 
