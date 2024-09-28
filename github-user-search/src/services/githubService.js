@@ -23,6 +23,7 @@ export const searchUsers = async (queryParams) => {
     query += `+repos:>${minRepos}`;
   }
 
+  // API endpoint for searching users with the constructed query
   const response = await axios.get(`https://api.github.com/search/users?${query}`);
   return response.data.items; // Return the array of user objects
 };
