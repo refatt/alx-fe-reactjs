@@ -6,8 +6,8 @@ const Search = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
-      onSearch(inputValue);
-      setInputValue(''); // Clear input after submission
+      onSearch(inputValue);  // Pass input value to the parent component (App.jsx)
+      setInputValue('');      // Clear input field after submission
     }
   };
 
@@ -17,7 +17,7 @@ const Search = ({ onSearch }) => {
         type="text"
         placeholder="Enter GitHub username"
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => setInputValue(e.target.value)}  // Update input value
       />
       <button type="submit">Search</button>
     </form>
