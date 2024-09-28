@@ -12,18 +12,17 @@ const Search = () => {
   const handleSearch = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // Reset error state
+    setError(null);
 
-    // Merge the search parameters into a single object
     const queryParams = {
       username,
       location,
-      minRepos: minRepos ? parseInt(minRepos) : undefined, // Convert to number if provided
+      minRepos: minRepos ? parseInt(minRepos) : undefined,
     };
 
     try {
       const data = await searchUsers(queryParams);
-      setUserData(data); // Update state with the list of users
+      setUserData(data);
     } catch (err) {
       setError('Looks like we can’t find any users matching that criteria.');
     } finally {
@@ -39,8 +38,8 @@ const Search = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Enter GitHub username"
-          className="search-input"
           required
+          className="search-input"
         />
         <input
           type="text"
@@ -67,6 +66,8 @@ const Search = () => {
           <div key={user.id} className="user-item">
             <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
             <h2>{user.login}</h2>
+            {user.location && <p>Location: {user.location}</p>}
+            <p>Repositories: {user.public_repos}</p>
             <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
               View Profile
             </a>
