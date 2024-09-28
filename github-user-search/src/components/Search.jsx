@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { searchUsers } from '../services/githubService';
 
 const Search = () => {
-  const [query, setQuery] = useState('');
+  const [username, setUsername] = useState('');
+  const [location, setLocation] = useState('');
+  const [minRepos, setMinRepos] = useState('');
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -12,8 +14,14 @@ const Search = () => {
     setLoading(true);
     setError(null); // Reset error state
 
+    const queryParams = {
+      username,
+      location,
+      minRepos: minRepos ? parseInt(minRepos) : undefined, // Convert to number if provided
+    };
+
     try {
-      const data = await searchUsers(query);
+      const data = await searchUsers(queryParams);
       setUserData(data); // Update state with the list of users
     } catch (err) {
       setError('Looks like we can’t find any users matching that criteria.');
@@ -27,11 +35,25 @@ const Search = () => {
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for GitHub users..."
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Enter GitHub username"
           className="search-input"
           required
+        />
+        <input
+          type="text"
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
+          placeholder="Enter location (optional)"
+          className="search-input"
+        />
+        <input
+          type="number"
+          value={minRepos}
+          onChange={(e) => setMinRepos(e.target.value)}
+          placeholder="Minimum repositories (optional)"
+          className="search-input"
         />
         <button type="submit" className="search-button">Search</button>
       </form>
