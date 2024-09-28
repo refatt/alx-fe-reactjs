@@ -1,5 +1,12 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import Search from './Search';
+import { render, screen } from '@testing-library/react';
+import Search from './Search';
+
+test('displays error message', () => {
+  render(<Search onSearch={() => {}} loading={false} userData={null} error={'Looks like we can’t find the user.'} />);
+  expect(screen.getByText(/Looks like we can’t find the user/i)).toBeInTheDocument();  // Verify error message
+});
 
 test('renders search form and triggers onSearch on form submission', () => {
   const mockOnSearch = jest.fn();  // Mock onSearch function
