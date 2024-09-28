@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { fetchUserData } from '../services/githubService';
+import { searchUsers } from '../services/githubService';
 
 const Search = () => {
-  const [username, setUsername] = useState('');
-  const [userData, setUserData] = useState(null);
+  const [query, setQuery] = useState('');
+  const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,10 +13,10 @@ const Search = () => {
     setError(null); // Reset error state
 
     try {
-      const data = await fetchUserData(username);
-      setUserData(data); // Assume data is a single user object for this example
+      const data = await searchUsers(query);
+      setUserData(data); // Update state with the list of users
     } catch (err) {
-      setError('Looks like we can’t find the user');
+      setError('Looks like we can’t find any users matching that criteria.');
     } finally {
       setLoading(false);
     }
@@ -27,9 +27,9 @@ const Search = () => {
       <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter GitHub username"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search for GitHub users..."
           className="search-input"
           required
         />
@@ -38,30 +38,18 @@ const Search = () => {
 
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {userData && (
-        <div className="user-result">
-          <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} className="avatar" />
-          <h2>{userData.login}</h2>
-          <a href={`https://github.com/${userData.login}`} target="_blank" rel="noopener noreferrer">
-            View Profile
-          </a>
-        </div>
-      )}
-
-      {/* Example of displaying multiple users (assuming userData could be an array) */}
-      {Array.isArray(userData) && (
-        <div className="user-list">
-          {userData.map((user) => (
-            <div key={user.id} className="user-item">
-              <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
-              <h2>{user.login}</h2>
-              <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
-                View Profile
-              </a>
-            </div>
-          ))}
-        </div>
-      )}
+      
+      <div className="user-list">
+        {userData.map((user) => (
+          <div key={user.id} className="user-item">
+            <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
+            <h2>{user.login}</h2>
+            <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
+              View Profile
+            </a>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
