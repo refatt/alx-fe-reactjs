@@ -14,6 +14,7 @@ const Search = () => {
     setLoading(true);
     setError(null); // Reset error state
 
+    // Merge the search parameters into a single object
     const queryParams = {
       username,
       location,
