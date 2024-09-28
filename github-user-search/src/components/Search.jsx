@@ -26,7 +26,7 @@ const Search = ({ onSearch, loading, userData, error }) => {
 
       {/* Display loading, error, or user data */}
       {loading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <p>{error}</p>} {/* Display error message if there's an error */}
       {userData && (
         <div>
           <img src={userData.avatar_url} alt="User Avatar" width="100" />
