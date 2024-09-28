@@ -14,7 +14,7 @@ const Search = () => {
 
     try {
       const data = await fetchUserData(username);
-      setUserData(data);
+      setUserData(data); // Assume data is a single user object for this example
     } catch (err) {
       setError('Looks like we can’t find the user');
     } finally {
@@ -45,6 +45,21 @@ const Search = () => {
           <a href={`https://github.com/${userData.login}`} target="_blank" rel="noopener noreferrer">
             View Profile
           </a>
+        </div>
+      )}
+
+      {/* Example of displaying multiple users (assuming userData could be an array) */}
+      {Array.isArray(userData) && (
+        <div className="user-list">
+          {userData.map((user) => (
+            <div key={user.id} className="user-item">
+              <img src={user.avatar_url} alt={`${user.login}'s avatar`} className="avatar" />
+              <h2>{user.login}</h2>
+              <a href={`https://github.com/${user.login}`} target="_blank" rel="noopener noreferrer">
+                View Profile
+              </a>
+            </div>
+          ))}
         </div>
       )}
     </div>
