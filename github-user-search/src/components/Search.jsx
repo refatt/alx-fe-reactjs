@@ -1,63 +1,50 @@
 import React, { useState } from 'react';
+import { fetchUserData } from '../services/githubService';
 
-const Search = ({ onSearch, loading, userData, error }) => {
+const Search = () => {
   const [username, setUsername] = useState('');
-  const [location, setLocation] = useState('');
-  const [minRepos, setMinRepos] = useState('');
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSearch = async (e) => {
     e.preventDefault();
-    if (username.trim() || location.trim() || minRepos.trim()) {
-      onSearch({ username, location, minRepos });
-      setUsername('');
-      setLocation('');
-      setMinRepos('');
+    setLoading(true);
+    setError(null); // Reset error state
+
+    try {
+      const data = await fetchUserData(username);
+      setUserData(data);
+    } catch (err) {
+      setError('Looks like we can’t find the user');
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
+    <div className="search-container">
+      <form onSubmit={handleSearch} className="search-form">
         <input
           type="text"
-          placeholder="Enter GitHub username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border rounded p-2"
+          placeholder="Enter GitHub username"
+          className="search-input"
+          required
         />
-        <input
-          type="text"
-          placeholder="Enter location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          className="border rounded p-2"
-        />
-        <input
-          type="number"
-          placeholder="Minimum repositories"
-          value={minRepos}
-          onChange={(e) => setMinRepos(e.target.value)}
-          className="border rounded p-2"
-        />
-        <button type="submit" className="bg-blue-500 text-white rounded p-2">Search</button>
+        <button type="submit" className="search-button">Search</button>
       </form>
 
-      {/* Display loading, error, or user data */}
-      {loading && <p className="text-center mt-4">Loading...</p>}
-      {error && <p className="text-center text-red-500">{error}</p>}
-      {userData && userData.length > 0 && (
-        <div className="mt-4">
-          {userData.map((user) => (
-            <div key={user.id} className="border p-4 rounded mb-2">
-              <img src={user.avatar_url} alt="User Avatar" width="100" />
-              <p>Username: {user.login}</p>
-              <p>Location: {user.location || 'N/A'}</p>
-              <p>Repositories: {user.public_repos}</p>
-              <a href={user.html_url} target="_blank" rel="noopener noreferrer" className="text-blue-500">
-                Visit Profile
-              </a>
-            </div>
-          ))}
+      {loading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
+      {userData && (
+        <div className="user-result">
+          <img src={userData.avatar_url} alt={`${userData.login}'s avatar`} className="avatar" />
+          <h2>{userData.login}</h2>
+          <a href={`https://github.com/${userData.login}`} target="_blank" rel="noopener noreferrer">
+            View Profile
+          </a>
         </div>
       )}
     </div>
