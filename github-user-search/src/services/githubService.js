@@ -9,21 +9,23 @@ export const fetchUserData = async (username) => {
 // Function to search for users with advanced criteria
 export const searchUsers = async (queryParams) => {
   const { username, location, minRepos } = queryParams;
-  
-  // Construct the query string
-  let query = username ? `q=${username}` : 'q=';
-  
-  // Add location if provided
+
+  // Construct the base query string
+  let query = `q=${username ? username : ''}`;
+
+  // Append location if provided
   if (location) {
     query += `+location:${location}`;
   }
-  
-  // Add minimum repositories filter if provided
+
+  // Append minimum repositories filter if provided
   if (minRepos) {
     query += `+repos:>${minRepos}`;
   }
 
   // API endpoint for searching users with the constructed query
   const response = await axios.get(`https://api.github.com/search/users?${query}`);
-  return response.data.items; // Return the array of user objects
+  
+  // Return the array of user objects
+  return response.data.items; 
 };
